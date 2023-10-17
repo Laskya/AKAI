@@ -40,7 +40,6 @@ class RatioObtainer:
         today = datetime.date.today().strftime("%Y-%m-%d")
         file = open("ratios.json", "r+")
         data = json.load(file)
-        file.close()
         for i in data:
             if i["base_currency"] == self.base and i["target_currency"] == self.target:
                 i["ratio"] = ratio
@@ -55,7 +54,7 @@ class RatioObtainer:
                     "ratio": ratio,
                 }
             )
-        file = open("ratios.json", "w")
+        file.seek(0)
         json.dump(data, file, indent=2, ensure_ascii=False)
         file.close()
         pass
